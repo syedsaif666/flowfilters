@@ -103,24 +103,45 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: widget.title,
-          backgroundColor: widget.appBarColor,
-          actions: <Widget>[
-            loading
-                ? Container()
-                : IconButton(
-                    icon: Icon(Icons.check),
-                    onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      var imageFile = await saveFilteredImage();
+        backgroundColor: Colors.white12,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(48),
+          child: AppBar(
+            title: widget.title,
+            elevation: 0,
+            backgroundColor: Colors.pink[900],
+            centerTitle: true,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 36,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                print("Get.back()");
+              },
+            ),
+            actions: <Widget>[
+              loading
+                  ? Container()
+                  : IconButton(
+                      icon: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.blue,
+                        size: 36,
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          loading = true;
+                        });
+                        var imageFile = await saveFilteredImage();
 
-                      Navigator.pop(context, {'image_filtered': imageFile});
-                    },
-                  )
-          ],
+                        Navigator.pop(context, {'image_filtered': imageFile});
+                      },
+                    )
+            ],
+          ),
         ),
         body: Container(
           width: double.infinity,
@@ -163,6 +184,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                                     ),
                                     Text(
                                       widget.filters[index].name,
+                                      style: TextStyle(color: Colors.white),
                                     )
                                   ],
                                 ),
@@ -195,35 +217,64 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
             case ConnectionState.none:
             case ConnectionState.active:
             case ConnectionState.waiting:
-              return CircleAvatar(
+              return 
+              
+              CircleAvatar(
                 radius: 50.0,
                 child: Center(
                   child: widget.loader,
                 ),
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.black12,
               );
+              
             case ConnectionState.done:
               if (snapshot.hasError)
                 return Center(child: Text('Error: ${snapshot.error}'));
               cachedFilters[filter?.name ?? "_"] = snapshot.data;
-              return CircleAvatar(
-                radius: 50.0,
-                backgroundImage: MemoryImage(
-                  snapshot.data,
+              return Container(
+                height: 90.0,
+                width: 90.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: MemoryImage(
+                      snapshot.data,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.rectangle,
                 ),
-                backgroundColor: Colors.white,
               );
+
+            // CircleAvatar(
+            //   radius: 50.0,
+            //   backgroundImage: MemoryImage(
+            //     snapshot.data,
+            //   ),
+            //   backgroundColor: Colors.black38,
+            // );
           }
           return null; // unreachable
         },
       );
     } else {
-      return CircleAvatar(
-        radius: 50.0,
-        backgroundImage: MemoryImage(
-          cachedFilters[filter?.name ?? "_"],
+      return
+          // CircleAvatar(
+          //   radius: 50.0,
+          //   backgroundImage: MemoryImage(
+          //     cachedFilters[filter?.name ?? "_"],
+          //   ),
+          //   backgroundColor: Colors.white,
+          // );
+          Container(
+        height: 90.0,
+        width: 90.0,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: MemoryImage(cachedFilters[filter?.name ?? "_"]),
+            fit: BoxFit.cover,
+          ),
+          shape: BoxShape.rectangle,
         ),
-        backgroundColor: Colors.white,
       );
     }
   }

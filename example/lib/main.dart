@@ -7,7 +7,7 @@ import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(new MaterialApp(home: MyApp()));
+void main() => runApp(new MaterialApp(home: MyApp(),debugShowCheckedModeBanner: false,));
 
 class MyApp extends StatefulWidget {
   @override
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       context,
       new MaterialPageRoute(
         builder: (context) => new PhotoFilterSelector(
-          title: Text("Photo Filter Example"),
+          title: Text("Filter Selector"),
           image: image,
           filters: presetFiltersList,
           filename: fileName,
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Photo Filter Example'),
+        title: new Text('Filter Selector'),
       ),
       body: Center(
         child: new Container(
