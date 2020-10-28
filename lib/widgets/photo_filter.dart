@@ -167,14 +167,22 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                     Expanded(
                       flex: 2,
                       child: Container(
+                          // color: Colors.amber,
+                           margin: EdgeInsets.fromLTRB(4,10,4,40),
+                           
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: widget.filters.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               child: Container(
-                                padding: EdgeInsets.all(5.0),
+                               
+                                 margin: EdgeInsets.all(4),
+                          
+                                padding: EdgeInsets.all(2.0),
                                 child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     _buildFilterThumbnail(
@@ -219,19 +227,32 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
             case ConnectionState.waiting:
               return 
               
-              CircleAvatar(
-                radius: 50.0,
-                child: Center(
-                  child: widget.loader,
+              // CircleAvatar(
+              //   radius: 50.0,
+              //   child: Center(
+              //     child: widget.loader,
+              //   ),
+              //   backgroundColor: Colors.black12,
+              // );
+
+              Center(
+                child: Container(
+                  
+                  
+                  height: 90.0,
+                  width: 90.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                  ),
                 ),
-                backgroundColor: Colors.black12,
               );
-              
+
             case ConnectionState.done:
               if (snapshot.hasError)
                 return Center(child: Text('Error: ${snapshot.error}'));
               cachedFilters[filter?.name ?? "_"] = snapshot.data;
               return Container(
+               
                 height: 90.0,
                 width: 90.0,
                 decoration: BoxDecoration(
@@ -266,6 +287,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
           //   backgroundColor: Colors.white,
           // );
           Container(
+            //color: Colors.amber,
         height: 90.0,
         width: 90.0,
         decoration: BoxDecoration(
