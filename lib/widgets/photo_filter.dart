@@ -237,7 +237,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
 
               Center(
                 child: Container(
-                  
+                  child: widget.loader,
                   
                   height: 90.0,
                   width: 90.0,
