@@ -109,7 +109,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
           child: AppBar(
             title: widget.title,
             elevation: 0,
-            backgroundColor: Colors.pink[900],
+            backgroundColor: Colors.black,
             centerTitle: true,
             leading: IconButton(
               icon: Icon(
@@ -152,7 +152,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      flex: 6,
+                      flex: 5,
                       child: Container(
                         width: double.infinity,
                         height: double.infinity,
