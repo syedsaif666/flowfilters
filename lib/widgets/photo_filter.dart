@@ -128,7 +128,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                   : IconButton(
                       icon: Icon(
                         Icons.arrow_forward,
-                        color: Colors.blue,
+                        color: Colors.pink,
                         size: 36,
                       ),
                       onPressed: () async {
