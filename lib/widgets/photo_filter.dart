@@ -103,10 +103,19 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white12,
+        ///[CUSTOM DIVIDER]
+
+        // backgroundColor: Colors.red,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(48),
           child: AppBar(
+            bottom: PreferredSize(
+              child: Container(
+                color: Colors.grey[700],
+                height: 0.4,
+              ),
+              preferredSize: Size.fromHeight(0.4),
+            ),
             title: widget.title,
             elevation: 0,
             backgroundColor: Colors.black,
@@ -137,7 +146,8 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                         });
                         var imageFile = await saveFilteredImage();
 
-                        Navigator.pop(context, {'image_filtered': imageFile});
+                        Navigator.pop(
+                            context, {'image_filtered': imageFile.path});
                       },
                     )
             ],
@@ -167,18 +177,16 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                     Expanded(
                       flex: 2,
                       child: Container(
-                          // color: Colors.amber,
-                           margin: EdgeInsets.fromLTRB(4,10,4,40),
-                           
+                        // color: Colors.amber,
+                        margin: EdgeInsets.fromLTRB(4, 10, 4, 40),
+
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: widget.filters.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               child: Container(
-                               
-                                 margin: EdgeInsets.all(4),
-                          
+                                margin: EdgeInsets.all(4),
                                 padding: EdgeInsets.all(2.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -225,20 +233,19 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
             case ConnectionState.none:
             case ConnectionState.active:
             case ConnectionState.waiting:
-              return 
-              
-              // CircleAvatar(
-              //   radius: 50.0,
-              //   child: Center(
-              //     child: widget.loader,
-              //   ),
-              //   backgroundColor: Colors.black12,
-              // );
+              return
 
-              Center(
+                  // CircleAvatar(
+                  //   radius: 50.0,
+                  //   child: Center(
+                  //     child: widget.loader,
+                  //   ),
+                  //   backgroundColor: Colors.black12,
+                  // );
+
+                  Center(
                 child: Container(
                   child: widget.loader,
-                  
                   height: 90.0,
                   width: 90.0,
                   decoration: BoxDecoration(
@@ -252,7 +259,6 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               cachedFilters[filter?.name ?? "_"] = snapshot.data;
               return Container(
-               
                 height: 90.0,
                 width: 90.0,
                 decoration: BoxDecoration(
@@ -287,7 +293,7 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
           //   backgroundColor: Colors.white,
           // );
           Container(
-            //color: Colors.amber,
+        //color: Colors.amber,
         height: 90.0,
         width: 90.0,
         decoration: BoxDecoration(
