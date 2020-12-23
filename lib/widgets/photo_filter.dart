@@ -51,6 +51,14 @@ class PhotoFilter extends StatelessWidget {
   }
 }
 
+class CustomScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
+
 ///The PhotoFilterSelector Widget for apply filter from a selected set of filters
 class PhotoFilterSelector extends StatefulWidget {
   final Widget title;
@@ -179,37 +187,42 @@ class _PhotoFilterSelectorState extends State<PhotoFilterSelector> {
                       child: Container(
                         // color: Colors.amber,
                         margin: EdgeInsets.fromLTRB(4, 10, 4, 40),
-
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.filters.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return InkWell(
-                              child: Container(
-                                margin: EdgeInsets.all(4),
-                                padding: EdgeInsets.all(2.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    _buildFilterThumbnail(
-                                        widget.filters[index], image, filename),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      widget.filters[index].name,
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
+                        child: ScrollConfiguration(
+                          behavior: CustomScrollBehavior(),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.filters.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                child: Container(
+                                  margin: EdgeInsets.all(4),
+                                  padding: EdgeInsets.all(2.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      _buildFilterThumbnail(
+                                          widget.filters[index],
+                                          image,
+                                          filename),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        widget.filters[index].name,
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              onTap: () => setState(() {
-                                _filter = widget.filters[index];
-                              }),
-                            );
-                          },
+                                onTap: () => setState(() {
+                                  _filter = widget.filters[index];
+                                }),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
